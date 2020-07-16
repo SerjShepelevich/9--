@@ -71,7 +71,7 @@ class Durak_game:
             karta_dobora = osnovnaia_koloda.pop(random.randint(0,len(osnovnaia_koloda)-1))
             koloda = activ_plaer['koloda']
             koloda.append(karta_dobora)
-            self.game_baza[nomer_otb_igroka] = {list(activ_plaer.keys())[0]: list(activ_plaer.keys())[0],'koloda': koloda}
+            self.game_baza[self.nomer_otb_igroka] = {list(activ_plaer.keys())[0]: list(activ_plaer.keys())[0],'koloda': koloda}
             print("Игрок ",list(activ_plaer.keys())[self.nomer_otb_igroka]," добирае из колоды карту : ",karta_dobora )
         return self.game_baza
 
@@ -106,23 +106,29 @@ game.nomer_act_igroka = 0
 game.nomer_otb_igroka = 1
 game.hod_brosok()
 game.proverka_kolod_igroka()
-if game.varianti == 0:
-    while game.varianti == None:
+if game.varianti['varianti'] == 0:
+    while game.varianti['varianti'] == 0 and len(game.game_baza[-1]['koloda']) > 0:
         game.dobor_karti_igrokom()
         game.proverka_kolod_igroka()
     game.vibrat_karty()
 else:
     game.vibrat_karty()
-game.ubrat_karty_izcolodi_igroka()
-game.nomer_act_igroka = 1
-game.nomer_otb_igroka = 0
-game.hod_brosok()
-game.proverka_kolod_igroka()
-if game.varianti == 0:
-    while game.varianti == None:
-        game.dobor_karti_igrokom()
-        game.proverka_kolod_igroka()
-    game.vibrat_karty()
+if (game.varianti['varianti'] == 0 and len(game.game_baza[-1]['koloda']) == 0) !=True:
+    game.ubrat_karty_izcolodi_igroka()
+    game.nomer_act_igroka = 1
+    game.nomer_otb_igroka = 0
+    game.hod_brosok()
+    game.proverka_kolod_igroka()
+    if game.varianti['varianti'] == 0:
+        while game.varianti['varianti'] == 0 and len(game.game_baza[-1]['koloda']) > 0:
+            game.dobor_karti_igrokom()
+            game.proverka_kolod_igroka()
+        game.vibrat_karty()
+    else:
+        game.vibrat_karty()
+    if (game.varianti['varianti'] == 0 and len(game.game_baza[-1]['koloda']) == 0) != True:
+        game.ubrat_karty_izcolodi_igroka()
+    else:
+        print("Игрок", str(game.nomer_act_igroka), " выиграл")
 else:
-    game.vibrat_karty()
-game.ubrat_karty_izcolodi_igroka()
+    print("Игрок",str(game.nomer_act_igroka)," выиграл")
