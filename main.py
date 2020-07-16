@@ -85,7 +85,11 @@ class Durak_game:
             self.karta_otvet = self.varianti['koloda'][0]
         else:
             self.karta_otvet = None
-        print(list(self.game_baza[self.nomer_otb_igroka].keys())[0], ' в ответ идет ' , self.karta_otvet['mast'] , ' ' , self.karta_otvet['nom'])
+        if self.karta_otvet != None:
+            print(list(self.game_baza[self.nomer_otb_igroka].keys())[0], ' в ответ идет ' , self.karta_otvet['mast'] , ' ' , self.karta_otvet['nom'])
+        else:
+            print(list(self.game_baza[self.nomer_otb_igroka].keys())[0]," берет карту из колоды")
+
         return self.karta_otvet
 
     # удаляет карту ответ из колоды игрока
@@ -102,7 +106,7 @@ game.nomer_act_igroka = 0
 game.nomer_otb_igroka = 1
 game.hod_brosok()
 game.proverka_kolod_igroka()
-if game.varianti == None:
+if game.varianti == 0:
     while game.varianti == None:
         game.dobor_karti_igrokom()
         game.proverka_kolod_igroka()
@@ -114,7 +118,7 @@ game.nomer_act_igroka = 1
 game.nomer_otb_igroka = 0
 game.hod_brosok()
 game.proverka_kolod_igroka()
-if game.varianti == None:
+if game.varianti == 0:
     while game.varianti == None:
         game.dobor_karti_igrokom()
         game.proverka_kolod_igroka()
